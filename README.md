@@ -3,7 +3,7 @@
 1. download GyazoClient
 2. modify HOST and PORT (optional http.use_ssl)
 
-## startup host
+## startup server
 ```bash
 pipenv run python app.py
 ```
