@@ -5,8 +5,25 @@ import os
 from flask_cors import CORS
 from kafka import KafkaProducer
 
-app = Flask(__name__)
 ENV_FORMAT = 'OREOREGYAZO_{}'
+
+desc = '''---------------------
+IMAGE_URL: {}
+IMAGE_DIR: {}
+ALLOW_CORS_HOST: {}
+KAFKA_HOST: {}
+DEBUG: {}
+---------------------
+'''.format(
+    os.getenv(ENV_FORMAT.format('URL'), 'http://localhost:3000/images/'),
+    os.getenv(ENV_FORMAT.format('DIR'), './images'),
+    os.getenv(ENV_FORMAT.format('ALLOW_CORS_HOST', 'localhost')),
+    os.getenv('KAFKA_HOST'),
+    os.getenv(ENV_FORMAT.format('DEBUG'), 'DEBUG')
+)
+print(desc)
+
+app = Flask(__name__)
 app.config['IMAGE_URL'] = os.getenv(ENV_FORMAT.format('URL'), 'http://localhost:3000/images/')
 app.config['IMAGE_DIR'] = os.getenv(ENV_FORMAT.format('DIR'), './images')
 CORS(app, resources={'/images/*': {'origins': os.getenv(ENV_FORMAT.format('ALLOW_CORS_HOST', 'localhost'))}})
